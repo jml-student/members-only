@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <% if (locals.user) {%>
+    <h1>WELCOME BACK <%= user.username %></h1>
+    <a href="/logout">LOG OUT</a>
+  <% } else { %>
+    <h1>please log in</h1>
+    <a href="/">LOG IN</a>
+  <%}%>
+</body>
+</html>
