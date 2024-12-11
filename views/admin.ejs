@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEMBERS CLUB</title>
+</head>
+<body>
+    <% if (locals.user) {%>
+        <h1>Become an admin</h1>
+        <a href="/home">Home</a>
+        <a href="/club">Club</a>
+        <a href="/message">Create Message</a>
+        <a href="/logout">Logout</a>
+        <% if (errors.length > 0) { %>
+            <p>
+              <% errors.forEach((error) => { %>
+                <p><%= error.msg %></p>
+              <% }) %>
+            </p>
+        <% } %>
+        <% if (user.admin === false) { %>
+            <form action="/admin" method="post">
+                <h3>Become an admin by entering the secret passcode</h3>
+                <label for="code">Code</label>
+                <input type="text" name="code" id="code" required />
+                <button type="submit">Submit</button>
+            </form>
+        <% } else { %>
+            <p>You are already an admin</p>
+        <% } %>
+      <% } else { %>
+        <h1>Please log in</h1>
+        <a href="/">Login</a>
+      <%}%>
+</body>
+</html>

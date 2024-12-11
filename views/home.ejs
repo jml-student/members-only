@@ -2,15 +2,41 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>MEMBERS CLUB</title>
 </head>
 <body>
   <% if (locals.user) {%>
-    <h1>WELCOME BACK <%= user.username %></h1>
-    <a href="/logout">LOG OUT</a>
+    <h1>Welcome <%= user.username %></h1>
+    <a href="/message">Create Message</a>
+    <a href="/club">Club</a>
+    <a href="/admin">Admin</a>
+    <a href="/logout">Logout</a>
+    <% if (errors.length > 0) { %>
+      <p>
+        <% errors.forEach((error) => { %>
+          <p><%= error %></p>
+        <% }) %>
+      </p>
+    <% } %>
+    <% messages.forEach((message) => { %>
+      <div class="message-container">
+        <h1><%= message.title %></h1>
+        <p><%= message.message %></p>
+        <% if (user.member === true) { %>
+          <p><%= message.author %></p>
+          <p><%= message.timestamp %></p>
+        <% } %>
+        <% if (user.admin === true) { %>
+          <form action="/delete" method="post">
+            <input type="hidden" name="id" value="<%= message.id %>"/>
+            <button type="submit">Delete</button>
+          </form>
+        <% } %>
+      </div>
+    <% }) %> 
   <% } else { %>
-    <h1>please log in</h1>
-    <a href="/">LOG IN</a>
+    <h1>Please log in</h1>
+    <a href="/">Login</a>
   <%}%>
 </body>
 </html>
